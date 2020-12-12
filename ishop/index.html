@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Каталог</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+    <div id="container"></div>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="product.js"></script>
+
+
+    <script>
+        var shopName = 'Все для автомобиля';
+        var catalogueArr = [{
+            productName: 'шина',
+            price: 100,
+            photo: 'images/shina.jpg',
+            count: 50,
+            code: 1,
+        }, {
+            productName: 'диск',
+            price: 150,
+            photo: 'images/disk.jpg',
+            count: 40,
+            code: 2,
+        }, {
+            productName: 'насос',
+            price: 75,
+            photo: 'images/nasos.jpg',
+            count: 20,
+            code: 3,
+
+        }];
+
+        ReactDOM.render(
+            React.createElement(ProductBlock, {
+                shop: shopName,
+                catalogue: catalogueArr
+            }),
+            document.getElementById('container')
+        );
+    </script>
+
+</body>
+
+</html>
