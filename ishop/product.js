@@ -13,29 +13,20 @@ var ProductBlock = React.createClass({
         this.props.catalogue.forEach(function unitCreator(a) {
             var unit = a;
             var unitCode =
-                React.DOM.div({ key: unit.code, className: 'product' },
-                    React.DOM.span({ className: 'product_name' }, 'Товар:' + unit.productName),
-                    React.DOM.img({ src: unit.photo }, ),
-                    React.DOM.span({ className: 'price' }, 'Цена:' + unit.price),
-                    React.DOM.span({ className: 'count' }, 'Количество на складе:' + unit.count),
+                React.DOM.tr({ key: unit.code, className: 'product' },
+                    React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'product_name' }, unit.productName)),
+                    React.DOM.td({ className: 'cell' }, React.DOM.img({ src: unit.photo }, )),
+                    React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'price' }, unit.price)),
+                    React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'count' }, unit.count)),
                 );
             productsCode.push(unitCode);
         });
-        /*for (var a = 0; a < this.props.catalogue.length; a++) {
-            var unit = this.props.catalogue[a];
-            var unitCode =
-                React.DOM.div({ key: unit.code, className: 'product' },
-                    React.DOM.span({ className: 'product_name' }, 'Товар:' + unit.productName),
-                    React.DOM.img({ src: unit.photo }, ),
-                    React.DOM.span({ className: 'price' }, 'Цена:' + unit.price),
-                    React.DOM.span({ className: 'count' }, 'Количество на складе:' + unit.count),
 
-                );
-            productsCode.push(unitCode);
-        }*/
         return React.DOM.div({ className: 'ProductBlock' },
             React.DOM.h1({ className: 'shop_name' }, this.props.shop),
-            React.DOM.div({ className: 'products' }, productsCode),
+            React.DOM.table({ className: 'products' },
+                React.DOM.tbody({}, productsCode)
+            )
         );
     },
 });
