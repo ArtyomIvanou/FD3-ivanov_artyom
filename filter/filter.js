@@ -12,6 +12,7 @@ var Filter = React.createClass({
             arr: this.props.catalogue,
             arrayIsSorted: false,
             arrIsChanged: [],
+            clearInput: '',
         };
     },
     setFilterAlphabet: function() {
@@ -57,6 +58,12 @@ var Filter = React.createClass({
         })
         console.log(this.state.arr)
     },
+    discard: function() {
+        this.setState({
+            arr: this.props.catalogue,
+            arrayIsSorted: false,
+        })
+    },
     render: function() {
         var productsCode = [];
 
@@ -66,7 +73,7 @@ var Filter = React.createClass({
             productsCode.push(unitCode);
         });
         return React.DOM.div({ className: 'Wrapper' }, React.DOM.div({ className: 'Filter' },
-            React.DOM.input({ type: 'checkbox', /*defaultChecked: false,*/ onChange: this.setFilterAlphabet }), React.DOM.input({ type: 'text', /*defaultValue: this.state.textEmpty,*/ onChange: this.freeAnswerTextChanged }, ), React.DOM.input({ type: 'button', value: 'Сброс', onClick: this.getInitialState }),
+            React.DOM.input({ type: 'checkbox', defaultChecked: this.state.arrayIsSorted, onChange: this.setFilterAlphabet }), React.DOM.input({ type: 'text', defaultValue: this.state.clearinput, onChange: this.freeAnswerTextChanged }, ), React.DOM.input({ type: 'button', value: 'Сброс', onClick: this.discard }),
         ), React.DOM.select({ multiple: true, }, productsCode), );
     },
 });
