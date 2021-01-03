@@ -11,6 +11,7 @@ var ProductBlock = React.createClass({
     render: function() {
         var productsCode = [];
         this.props.catalogue.forEach(function unitCreator(a) {
+            //console.log(this.props.catalogue)
             var unit = a;
             var unitCode =
                 React.DOM.tr({ key: unit.code, className: 'product' },
