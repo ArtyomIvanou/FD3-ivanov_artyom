@@ -23,40 +23,28 @@ var ProductBlock = React.createClass({
         this.props.cbDeteted(EO.target.getAttribute('data'));
     },
     selected: function(EO) {
-
-        this.props.selected(EO.target.getAttribute('data'));
+        console.log(EO.currentTarget.getAttribute('data'))
+        this.props.selected(EO.currentTarget.getAttribute('data'));
     },
 
     render: function() {
-
         if (this.props.number == 0) {
-            return React.DOM.tr({ className: this.state.backgrondNotChecked, data: this.props.number, },
-                React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'product_name' }, this.props.productName)),
-                React.DOM.td({ className: 'cell' }, React.DOM.img({ src: this.props.photo }, )),
-                React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'price' }, this.props.price)),
-                React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'count' }, this.props.count)),
-                React.DOM.td({ className: 'cell' }, )
-            )
-        }
-        if (this.props.selectedItemID == this.props.number) {
-            return React.DOM.tr({ className: this.state.backgrondChecked, data: this.props.number, onClick: this.selected, },
-                React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'product_name' }, this.props.productName)),
-                React.DOM.td({ className: 'cell' }, React.DOM.img({ src: this.props.photo }, )),
-                React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'price' }, this.props.price)),
-                React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'count' }, this.props.count)),
-                React.DOM.td({ className: 'cell' }, React.DOM.input({ type: 'button', value: 'delete', data: this.props.number, className: 'button_delete', onClick: this.qqq, }, ))
-            )
+            var showButton = null
         } else {
-            return React.DOM.tr({ className: this.state.backgrondNotChecked, onClick: this.selected, data: this.props.number },
-                React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'product_name' }, this.props.productName)),
-                React.DOM.td({ className: 'cell' }, React.DOM.img({ src: this.props.photo }, )),
-                React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'price' }, this.props.price)),
-                React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'count' }, this.props.count)),
-                React.DOM.td({ className: 'cell' }, React.DOM.input({ type: 'button', value: 'delete', data: this.props.number, className: 'button_delete', onClick: this.qqq, }, ))
-            )
+            var showButton = React.DOM.input({ type: 'button', value: 'delete', data: this.props.number, className: 'button_delete', onClick: this.qqq, }, )
         }
-
-
+        if (this.props.selectedItemID == this.props.number && this.props.number > 0) {
+            var selectedStyle = this.state.backgrondChecked
+        } else {
+            var selectedStyle = this.state.backgrondNotChecked
+        }
+        return React.DOM.tr({ className: selectedStyle, data: this.props.number, onClick: this.selected, },
+            React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'product_name' }, this.props.productName)),
+            React.DOM.td({ className: 'cell' }, React.DOM.img({ src: this.props.photo }, )),
+            React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'price' }, this.props.price)),
+            React.DOM.td({ className: 'cell' }, React.DOM.span({ className: 'count' }, this.props.count)),
+            React.DOM.td({ className: 'cell' }, showButton)
+        )
 
     }
 })
