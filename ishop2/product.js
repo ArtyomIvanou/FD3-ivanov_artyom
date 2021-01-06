@@ -20,11 +20,11 @@ var ProductBlock = React.createClass({
     },
     qqq: function(EO) {
 
-        this.props.cbDeteted(EO.target.getAttribute('data'));
+        this.props.cbDeteted(this.props.number);
     },
-    selected: function(EO) {
-        console.log(EO.currentTarget.getAttribute('data'))
-        this.props.selected(EO.currentTarget.getAttribute('data'));
+    selected: function() {
+        console.log(this.props.number)
+        this.props.selected(this.props.number);
     },
 
     render: function() {
