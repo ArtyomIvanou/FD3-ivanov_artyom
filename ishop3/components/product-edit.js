@@ -1,22 +1,18 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 
-//import './VotesAnswer.css';
+
+
 
 class ProductUnitEditor extends React.Component {
-constructor(props){
-  super(props)
-  console.log(this.props.mode)
-  if (this.props.mode==2) {
-    alert('good')
-  } else {
+  constructor(props) {
+    super(props)
+    console.log(this.props.mode)
     
   }
-}
 
   state = {
 
-    idItem:this.props.number,
+    idItem: this.props.number,
     changeResulted: null,
 
     productName: this.props.productName,
@@ -35,27 +31,26 @@ constructor(props){
     countIsCorrect: true,
     countIsChanging: false,
 
+    error: false
   }
+ 
   cardIsChanging = () => {
-    
-    if ((this.state.nameIsChanging==false) && (this.state.labelIsChanging==false)&&(this.state.priceIsChanging==false)&&(this.state.countIsChanging==false)) {
-     // alert('good')
-      this.state.changeResulted=false
+   
+    if ((this.state.nameIsChanging == false) && (this.state.labelIsChanging == false) && (this.state.priceIsChanging == false) && (this.state.countIsChanging == false)) {
+     
+      this.state.changeResulted = false
       this.setState({ changeResulted: false })
     } else {
-      this.state.changeResulted=true
+      this.state.changeResulted = true
       this.setState({ changeResulted: true })
     }
-    
-    this.props.editIsWrong(this.state.changeResulted)
-    /*console.log("имя " + this.state.nameIsChanging)
-    console.log("лэйбл " + this.state.labelIsChanging)
 
-    console.log("рузультат " + this.state.changeResulted)*/
+    this.props.editIsWrong(this.state.changeResulted)
+   
   }
 
   nameEdited = (EO) => {
-    
+
     this.state.productName = ""
     this.state.productName += EO.target.value
     var resN = this.state.productName
@@ -67,22 +62,22 @@ constructor(props){
     }
     else { this.setState({ productNameIsCorrect: true }) }
     this.setState({ productName: this.state.productName })
- 
+
     if (resN == this.props.productName.toString().trim()) {
-      this.state.nameIsChanging=false
+      this.state.nameIsChanging = false
       this.setState({ nameIsChanging: false })
       this.props.editIsWrong(this.state.nameIsChanging)
     }
     else {
-    this.state.nameIsChanging=true
+      this.state.nameIsChanging = true
       this.setState({ nameIsChanging: true })
       this.props.editIsWrong(this.state.nameIsChanging)
     }
-   
+
   }
 
   labelEdited = (EO) => {
-    
+
     this.state.unitLabel = ""
     this.state.unitLabel += EO.target.value
     var resL = this.state.unitLabel
@@ -95,16 +90,16 @@ constructor(props){
     else { this.setState({ labelIsCorrect: true }) }
     this.setState({ unitLabel: this.state.unitLabel })
     if (resL == this.props.photo.toString()) {
-      this.state.labelIsChanging=false
+      this.state.labelIsChanging = false
       this.setState({ labelIsChanging: false })
       this.props.editIsWrong(this.state.labelIsChanging)
     }
     else {
-      this.state.labelIsChanging=true
+      this.state.labelIsChanging = true
       this.setState({ labelIsChanging: true })
       this.props.editIsWrong(this.state.labelIsChanging)
     }
-   
+
   }
   priceEdited = (EO) => {
 
@@ -114,12 +109,8 @@ constructor(props){
 
     var resP = this.state.price
     resP.toString().trim()
-    /*if (res == this.props.price.toString()) {
-     
-      this.props.editIsWrong(false)
-    }
-    else { this.props.editIsWrong(true) }*/
-    
+   
+
     if (resP == "") {
       this.setState({ priceIsCorrect: false })
       this.props.editIsWrong(this.state.priceIsCorrect)
@@ -128,12 +119,12 @@ constructor(props){
     this.setState({ price: this.state.price })
 
     if (resP == this.props.price.toString()) {
-      this.state.priceIsChanging=false
+      this.state.priceIsChanging = false
       this.setState({ priceIsChanging: false })
       this.props.editIsWrong(this.state.priceIsChanging)
     }
     else {
-      this.state.priceIsChanging=true
+      this.state.priceIsChanging = true
       this.setState({ priceIsChanging: true })
       this.props.editIsWrong(this.state.priceIsChanging)
     }
@@ -146,11 +137,7 @@ constructor(props){
 
     var resC = this.state.count
     resC.toString().trim()
-    /*if (res == this.props.count.toString()) {
-     
-      this.props.editIsWrong(false)
-    }
-    else { this.props.editIsWrong(true) }*/
+   
     if (resC == "") {
       this.setState({ countIsCorrect: false })
       this.props.editIsWrong(this.state.countIsCorrect)
@@ -159,53 +146,53 @@ constructor(props){
     this.setState({ count: this.state.count })
 
     if (resC == this.props.count.toString()) {
-      this.state.countIsChanging=false
+      this.state.countIsChanging = false
       this.setState({ countIsChanging: false })
       this.props.editIsWrong(this.state.countIsChanging)
     }
     else {
-      this.state.countIsChanging=true
+      this.state.countIsChanging = true
       this.setState({ countIsChanging: true })
       this.props.editIsWrong(this.state.countIsChanging)
     }
   }
   saveChanges = () => {
-    var arr=[]
    
-    arr.push(this.state.productName)
-    arr.push(this.state.unitLabel)
-    arr.push(this.state.price)
-    arr.push(this.state.count)
-    arr.push(this.state.idItem)
+    var arr = {}
+    arr.productName=this.state.productName
+    arr.price=this.state.price
+    arr.photo=this.state.unitLabel
+    arr.count=this.state.count
+    arr.code=this.state.idItem
+  
     console.log(arr)
-    this.props.save(this.props.number,arr)
-   }
+    this.props.save(this.props.number, arr)
+    this.props.editIsWrong(false)
+  }
   discardChanges = (EO) => {
-    this.setState({ changeResulted: null,
+    this.props.editIsWrong(false)
+    this.setState({
+      changeResulted: null,
 
       productName: this.props.productName,
       productNameIsCorrect: true,
       nameIsChanging: false,
-  
+
       unitLabel: this.props.photo,
       labelIsCorrect: true,
       labelIsChanging: false,
-  
+
       price: this.props.price,
       priceIsCorrect: true,
       priceIsChanging: false,
-  
+
       count: this.props.count,
       countIsCorrect: true,
       countIsChanging: false,
-  })
-   }
+    })
+  }
   render() {
-    //console.log(this.props.newId)
-    /*console.log("имя " + this.state.nameIsChanging)
-    console.log("лэйбл " + this.state.labelIsChanging)
-
-    console.log("рузультат " + this.state.changeResulted)*/
+   
     //алерт по имени
     if (!this.state.productNameIsCorrect) {
       var alertProductNameIsWrong = "Внимание!Поле не заполнено!"
@@ -230,12 +217,20 @@ constructor(props){
     } else {
       var alertCountIsWrong = null
     }
-    //выбор мода
-   /* if (this.props.mode=='1') {
-      var idRes=this.props.number
+    //дисэйбл кнопки
+    if (this.state.productName==''||this.state.unitLabel==''||this.state.price==''||this.state.count=='') {
+      var disabledB=true
     } else {
-      var idRes=this.props.newId
-    }*/
+      var disabledB=false
+    }
+    //выбор мода
+     if (this.props.mode==1) {
+       var buttonBlock=<div> <input type="button" value="save" onClick={this.saveChanges} disabled={disabledB}></input>
+       <input type="button" value="cancel" onClick={this.discardChanges} ></input></div>
+     } if (this.props.mode==2) {
+      var buttonBlock=<div> <input type="button" value="add" onClick={this.saveChanges} disabled={disabledB}></input>
+      <input type="button" value="cancel" onClick={this.discardChanges} ></input></div>
+     }
     return (
 
       <Fragment>
@@ -246,12 +241,11 @@ constructor(props){
           <div onBlur={this.cardIsChanging}><span>Label: </span><input type="text" value={this.state.unitLabel} onChange={this.labelEdited} ></input><span>{alertLabelIsWrong}</span></div>
           <div><span>Цена: </span><input type="text" value={this.state.price} onChange={this.priceEdited}></input><span>{alertPriceIsWrong}</span></div>
           <div><span>Количество: </span><input type="text" value={this.state.count} onChange={this.countEdited}></input><span>{alertCountIsWrong}</span></div>
-          </div>
-         <div>
-            <input type="button" value="save" onClick={this.saveChanges} disabled={!this.state.productNameIsCorrect}></input>
-            <input type="button" value="cancel" onClick={this.discardChanges} ></input>
-          </div>
-       
+        </div>
+        <div>
+         {buttonBlock}
+        </div>
+
       </Fragment>
     )
   }

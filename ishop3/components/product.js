@@ -1,21 +1,9 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 
-//import './VotesAnswer.css';
 
 class ProductBlock extends React.Component {
 
-  /* static propTypes = {
-     code: PropTypes.number.isRequired,
-     count: PropTypes.number.isRequired,
-     text: PropTypes.string.isRequired,
-     workMode: PropTypes.number.isRequired,
-     freeanswer: PropTypes.bool,
-     freeanswertext: PropTypes.string.isRequired,
-     cbFreeAnswerTextChanged: PropTypes.func.isRequired,
-     cbSelected: PropTypes.func.isRequired,
-     selectedAnswerCode: PropTypes.number, 
-   };*/
+ 
   state = {
     backgrondChecked: 'backgrondChecked',
     backgrondNotChecked: 'backgrondNotChecked',
@@ -25,14 +13,14 @@ class ProductBlock extends React.Component {
     deleteItem: this.props.number,
     editIsWrong:this.props.editIsWrong,
   }
-  qqq = (EO) => {
+  qqq = () => {
     if (this.props.editIsWrong) {
       return
     }
     this.props.cbDeteted(this.props.number);
   }
 
-  selected = (EO) => {
+  selected = () => {
     if (this.props.editIsWrong) {
       return
     }
@@ -49,7 +37,7 @@ class ProductBlock extends React.Component {
   }
 
   render() {
-    //console.log(this.props.editIsWrong)
+    console.log(this.props.editIsWrong)
     if (this.props.number == 0) {//проверка на шапку таблицы
       var showButton = null
     } else {
@@ -70,10 +58,8 @@ class ProductBlock extends React.Component {
         <td className='cell'><span className='price' >{this.props.price}</span></td>
         <td className='cell'><span className='count' >{this.props.count}</span></td>
         <td className='cell'>{showButton}</td>
-      </tr>)
-
-
-
+      </tr>
+      )
   }
 
 }

@@ -1,12 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 
 import './style.css';
 
 import ProductBlock from './product';
 import ProductDescription from './product-desc';
 import ProductUnitEditor from './product-edit';
-//import VotesAnswer from './VotesAnswer';
+
 
 class Shop extends React.Component {
 
@@ -14,6 +14,7 @@ class Shop extends React.Component {
         selectedItemID: 0,
         newArr: this.props.catalogue,
         isProductEdited: false,
+        isProductCreating: false,
         editIsWrong: null,
         mode: 1
     }
@@ -33,11 +34,11 @@ class Shop extends React.Component {
     selected = (it) => {
         this.setState({ selectedItemID: it })
         this.setState({ isProductEdited: false })
-        if (this.state.isProductEdited) {
-            // this.setState({ isProductEdited: true}) 
-        }
+        this.setState({ mode: 1 })
+
     }
     edited = (it, bool) => {
+        this.setState({ mode: 1 })
         this.setState({ selectedItemID: it })
         if (bool) {
             this.setState({ isProductEdited: true })
@@ -47,18 +48,15 @@ class Shop extends React.Component {
         this.setState({ editIsWrong: bool })
     }
     saveCard = (it, hash) => {
-
-        this.state.newArr[it].productName = hash[0]
-        this.state.newArr[it].price = hash[2]
-        this.state.newArr[it].photo = hash[1]
-        this.state.newArr[it].count = hash[3]
-        this.state.newArr[it].code = hash[4]
-        //console.log(this.state.newArr[it] )
+        console.log(this.state.newArr)
+        this.setState({ isProductEdited: false })
+        this.state.newArr.splice(it, 1, hash)
         this.setState(this.state.newArr)
+        this.setState({ selectedItemID: null })
     }
-    creatorMode = (num) => {
-        this.setState({ mode: 2 })
-
+    creatorMode = () => {
+        this.setState({ mode: 2,/*selectedItemID: 0,*/ })
+        this.setState({ isProductEdited: true })
     }
     render() {
         //список товаров
@@ -91,6 +89,7 @@ class Shop extends React.Component {
             />
         )
         //редактирование товара
+
         var ProductUnitEditorAll = this.state.newArr.map(a =>
             <ProductUnitEditor key={a.code}
                 shop={a.shop}
@@ -107,18 +106,41 @@ class Shop extends React.Component {
                 mode={this.state.mode}
             />
         )
-        var c = this.state.selectedItemID
+
+        var ProductCreate =
+            <ProductUnitEditor key={this.state.newArr.length}
+                shop={''}
+                catalogue={''}
+                productName={''}
+                price={''}
+                photo={''}
+                count={''}
+                number={this.state.newArr.length}
+                editIsWrong={this.checkCorrect}
+                changed={this.state.editIsWrong}
+                save={this.saveCard}
+                newId={this.state.newArr.length}
+                mode={this.state.mode}
+            />
+
+
 
         if (this.state.selectedItemID > 0) {
-            var ProductUnitDescriptionShow = ProductUnitDescription[c]
-        } else {
-            var ProductUnitDescriptionShow = null
+            var ProductUnitDescriptionShow = ProductUnitDescription[this.state.selectedItemID]
         }
         if (this.state.isProductEdited) {
             ProductUnitDescriptionShow = null
-            var ProductUnitEditorShow = ProductUnitEditorAll[c]
+            if (this.state.mode == 1) {
+                var ProductUnitEditorShow = ProductUnitEditorAll[this.state.selectedItemID]
+            }
+            if (this.state.mode == 2) {
+                var ProductUnitEditorShow = ProductCreate
+            }
         }
-        else { var ProductUnitEditorShow = null }
+        else {
+            var ProductUnitEditorShow = null
+            var butCreate = <input type="button" value="create" onClick={this.creatorMode} ></input>
+        }
         return (
             <div className='ProductBlock' >
                 <table>
@@ -126,7 +148,7 @@ class Shop extends React.Component {
                 </table>
                 <div className='ProductDescription'>{ProductUnitDescriptionShow}</div>
                 <div className='ProductEditor'>{ProductUnitEditorShow}</div>
-                <input type="button" value="create" ></input>
+                <div>{butCreate}</div>
             </div>
         );
     }
