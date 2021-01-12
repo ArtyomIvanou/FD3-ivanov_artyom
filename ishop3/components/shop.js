@@ -18,17 +18,22 @@ class Shop extends React.Component {
         editIsWrong: null,
         mode: 1
     }
-
+   
     deleted = (it) => {
         var check = confirm('вы уверены?')
-        this.setState({ isProductEdited: false })
+        
         if (check) {
-            this.state.newArr = this.props.catalogue.filter(function (a, i) {
+            var res=[]
+           res= this.state.newArr.filter(function (s, i) {
+
                 return i != it
             })
-        } else {
-            return
         }
+
+       console.log(res)
+      
+        this.setState({newArr:res})
+
     }
 
     selected = (it) => {
@@ -52,7 +57,7 @@ class Shop extends React.Component {
         this.setState({ isProductEdited: false })
         this.state.newArr.splice(it, 1, hash)
         this.setState(this.state.newArr)
-        this.setState({ selectedItemID: null })
+        
     }
     creatorMode = () => {
         this.setState({ mode: 2,/*selectedItemID: 0,*/ })
@@ -60,15 +65,15 @@ class Shop extends React.Component {
     }
     render() {
         //список товаров
-        var productsCode = this.state.newArr.map(a =>
-            <ProductBlock key={a.code}
+        var productsCode = this.state.newArr.map((a,i) =>
+            <ProductBlock key={i}
                 shop={a.shop}
                 catalogue={a.catalogue}
                 productName={a.productName}
                 price={a.price}
                 photo={a.photo}
                 count={a.count}
-                number={a.code}
+                number={i}
                 selected={this.selected}
                 selectedItemID={this.state.selectedItemID}
                 cbDeteted={this.deleted}
@@ -77,28 +82,28 @@ class Shop extends React.Component {
             />
         )
         //описание товара
-        var ProductUnitDescription = this.state.newArr.map(a =>
-            <ProductDescription key={a.code}
+        var ProductUnitDescription = this.state.newArr.map((a,i) =>
+            <ProductDescription key={i}
                 shop={a.shop}
                 catalogue={a.catalogue}
                 productName={a.productName}
                 price={a.price}
                 photo={a.photo}
                 count={a.count}
-                number={a.code}
+                number={i}
             />
         )
         //редактирование товара
 
-        var ProductUnitEditorAll = this.state.newArr.map(a =>
-            <ProductUnitEditor key={a.code}
+        var ProductUnitEditorAll = this.state.newArr.map((a,i) =>
+            <ProductUnitEditor key={i}
                 shop={a.shop}
                 catalogue={a.catalogue}
                 productName={a.productName}
                 price={a.price}
                 photo={a.photo}
                 count={a.count}
-                number={a.code}
+                number={i}
                 editIsWrong={this.checkCorrect}
                 changed={this.state.editIsWrong}
                 save={this.saveCard}

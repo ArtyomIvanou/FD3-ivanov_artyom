@@ -13,10 +13,12 @@ class ProductBlock extends React.Component {
     deleteItem: this.props.number,
     editIsWrong:this.props.editIsWrong,
   }
-  qqq = () => {
+  qqq = (EO) => {
+    
     if (this.props.editIsWrong) {
       return
     }
+    EO.stopPropagation()
     this.props.cbDeteted(this.props.number);
   }
 
@@ -41,8 +43,8 @@ class ProductBlock extends React.Component {
     if (this.props.number == 0) {//проверка на шапку таблицы
       var showButton = null
     } else {
-      var showButton = <Fragment><input type='button' value='delete' name='delete' data={this.props.number} className='button_delete' onClick={this.qqq}/>
-      <input type='button' value='edit' name='edit' data={this.props.number} className='button_edit' onClick={this.edited}/></Fragment>
+      var showButton = <Fragment><input type='button' value='delete' name='delete' data={this.props.number} className='button_delete' onClick={this.qqq} disabled={this.props.editIsWrong}/>
+      <input type='button' value='edit' name='edit' data={this.props.number} className='button_edit' onClick={this.edited} disabled={this.props.editIsWrong}/></Fragment>
      
     }
     //проверка на выделеный текст
