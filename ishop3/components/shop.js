@@ -31,8 +31,8 @@ class Shop extends React.Component {
         }
 
        console.log(res)
-      
-        this.setState({newArr:res})
+       this.setState({newArr:res})
+        this.setState({isProductEdited: false})
 
     }
 
