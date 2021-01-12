@@ -1,5 +1,0 @@
-[{ "productName": "наименование", "price": "цена", "photo": "label", "count": "количество"},
-    { "productName": "шина", "price": 100, "photo": "toyo", "count": 50 },
-    { "productName": "диск", "price": 150, "photo": "volk", "count": 40 },
-    { "productName": "насос", "price": 75, "photo": "nasos", "count": 20 }
-]
