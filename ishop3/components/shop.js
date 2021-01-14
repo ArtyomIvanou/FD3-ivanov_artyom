@@ -9,7 +9,11 @@ import ProductUnitEditor from './product-edit';
 
 
 class Shop extends React.Component {
+    constructor(props) {
+        super(props)
+       
 
+    }
     state = {
         selectedItemID: 0,
         newArr: this.props.catalogue,
@@ -18,21 +22,22 @@ class Shop extends React.Component {
         editIsWrong: null,
         mode: 1
     }
-   
+
     deleted = (it) => {
         var check = confirm('вы уверены?')
-        
+
         if (check) {
-            var res=[]
-           res= this.state.newArr.filter(function (s, i) {
+            var res = []
+            res = this.state.newArr.filter(function (s, i) {
 
                 return i != it
             })
         }
 
-       console.log(res)
-       this.setState({newArr:res})
-        this.setState({isProductEdited: false})
+        console.log(res)
+        this.setState({ newArr: res })
+        this.setState({ isProductEdited: false })
+        this.setState({ selectedItemID: 0 })
 
     }
 
@@ -53,27 +58,32 @@ class Shop extends React.Component {
         this.setState({ editIsWrong: bool })
     }
     saveCard = (it, hash) => {
-        console.log(this.state.newArr)
+       
         this.setState({ isProductEdited: false })
         this.state.newArr.splice(it, 1, hash)
         this.setState(this.state.newArr)
-        
+
     }
     creatorMode = () => {
+        var newID=this.state.newArr[this.state.newArr.length-1].code+1
+        this.setState({ newID: newID })
         this.setState({ mode: 2,/*selectedItemID: 0,*/ })
         this.setState({ isProductEdited: true })
     }
     render() {
+        //console.log(this.state.selectedItemID)
+        // console.log(this.state.newArr)
+       
         //список товаров
-        var productsCode = this.state.newArr.map((a,i) =>
-            <ProductBlock key={i}
+        var productsCode = this.state.newArr.map((a, i) =>
+            <ProductBlock key={a.code}
                 shop={a.shop}
                 catalogue={a.catalogue}
                 productName={a.productName}
                 price={a.price}
                 photo={a.photo}
                 count={a.count}
-                number={i}
+                number={a.code}
                 selected={this.selected}
                 selectedItemID={this.state.selectedItemID}
                 cbDeteted={this.deleted}
@@ -82,21 +92,21 @@ class Shop extends React.Component {
             />
         )
         //описание товара
-        var ProductUnitDescription = this.state.newArr.map((a,i) =>
-            <ProductDescription key={i}
+        var ProductUnitDescription = this.state.newArr.map((a, i) =>
+            <ProductDescription key={a.code}
                 shop={a.shop}
                 catalogue={a.catalogue}
                 productName={a.productName}
                 price={a.price}
                 photo={a.photo}
                 count={a.count}
-                number={i}
+                number={a.code}
             />
         )
         //редактирование товара
 
-        var ProductUnitEditorAll = this.state.newArr.map((a,i) =>
-            <ProductUnitEditor key={i}
+        var ProductUnitEditorAll = this.state.newArr.map((a, i) =>
+            <ProductUnitEditor key={a.code}
                 shop={a.shop}
                 catalogue={a.catalogue}
                 productName={a.productName}
@@ -107,36 +117,46 @@ class Shop extends React.Component {
                 editIsWrong={this.checkCorrect}
                 changed={this.state.editIsWrong}
                 save={this.saveCard}
-                newId={this.state.newArr.length}
+               // newId={newID}
                 mode={this.state.mode}
             />
         )
 
         var ProductCreate =
-            <ProductUnitEditor key={this.state.newArr.length}
+            <ProductUnitEditor key={this.state.newID}
                 shop={''}
                 catalogue={''}
                 productName={''}
                 price={''}
                 photo={''}
                 count={''}
-                number={this.state.newArr.length}
+                number={this.state.newID}
                 editIsWrong={this.checkCorrect}
                 changed={this.state.editIsWrong}
                 save={this.saveCard}
-                newId={this.state.newArr.length}
+                newId={this.state.newID}
                 mode={this.state.mode}
             />
+        //выбор индетификатора для отрисовки
+        var qqqq = null
+        var sss = this.state.selectedItemID
+        var selectedID = this.state.newArr.forEach((e, i) => {
+            if (e.code == sss) {
+                return qqqq = i
+            }
+        })
+       
+        //console.log(qqqq)
+        //console.log(selectedID)
 
-
-
+        //вырианты отрисовки
         if (this.state.selectedItemID > 0) {
-            var ProductUnitDescriptionShow = ProductUnitDescription[this.state.selectedItemID]
+            var ProductUnitDescriptionShow = ProductUnitDescription[qqqq]
         }
         if (this.state.isProductEdited) {
             ProductUnitDescriptionShow = null
             if (this.state.mode == 1) {
-                var ProductUnitEditorShow = ProductUnitEditorAll[this.state.selectedItemID]
+                var ProductUnitEditorShow = ProductUnitEditorAll[qqqq]
             }
             if (this.state.mode == 2) {
                 var ProductUnitEditorShow = ProductCreate

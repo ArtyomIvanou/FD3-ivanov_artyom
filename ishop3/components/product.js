@@ -39,7 +39,7 @@ class ProductBlock extends React.Component {
   }
 
   render() {
-    console.log(this.props.editIsWrong)
+    //console.log(this.props.editIsWrong)
     if (this.props.number == 0) {//проверка на шапку таблицы
       var showButton = null
     } else {
