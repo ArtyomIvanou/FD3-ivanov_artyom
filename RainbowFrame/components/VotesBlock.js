@@ -1,10 +1,9 @@
 ﻿import React from 'react';
-import PropTypes from 'prop-types';
+
 
 import './VotesBlock.css';
 
-import VotesQuestion from './VotesQuestion';
-import VotesAnswer from './VotesAnswer';
+
 import ColorFrame from './ColorFrame';
 
 class VotesBlock extends React.Component {
