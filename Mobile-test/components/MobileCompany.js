@@ -10,7 +10,7 @@ import { editEvents } from './events';
 class MobileCompany extends React.PureComponent {
 
   static propTypes = {
-    name: PropTypes.string.isRequired,
+    //name: PropTypes.string.isRequired,
     clients: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -21,7 +21,7 @@ class MobileCompany extends React.PureComponent {
   };
 
   state = {
-    name: this.props.name,
+    //name: this.props.name,
     clients: this.props.clients,
     edited: false,
     editNum: null,
@@ -147,13 +147,13 @@ class MobileCompany extends React.PureComponent {
     this.setState({ edited: false });
     this.setState({ created: true });
   };
-  setName1 = () => {
+  /*setName1 = () => {
     this.setState({ name: 'МТС' });
   };
 
   setName2 = () => {
     this.setState({ name: 'Velcom' });
-  };
+  };*/
 
 
 
@@ -178,10 +178,7 @@ class MobileCompany extends React.PureComponent {
     );
     return (
       <div className='MobileCompany'>
-        <input type="button" value="Velcom" onClick={this.setName2} />
-        <input type="button" value="МТС" onClick={this.setName1} />
-
-        <div className='MobileCompanyName'>Компания: {this.state.name}</div>
+       
 
         <div className="CliensSorting">
           <input type="button" value="Все" onClick={this.showAll} />

@@ -17,7 +17,7 @@ let clientsArr=[
 console.log(jsonArr)*/
 ReactDOM.render(
   <MobileCompany 
-    name={companyName}
+   
     clients={clientsArr}
   />
   , document.getElementById('container') 
