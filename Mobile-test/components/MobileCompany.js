@@ -24,8 +24,10 @@ class MobileCompany extends React.PureComponent {
     //name: this.props.name,
     clients: this.props.clients,
     edited: false,
-    editNum: null,
+    editNum: {id:1},
     created:false,
+    
+
   };
   componentDidMount = () => {
     editEvents.addListener('DeleteClient', this.deteteClient);
@@ -43,7 +45,7 @@ class MobileCompany extends React.PureComponent {
    
   };
   allClients = this.props.clients
-  hashOfNewClient={id:null, fio:null,fam:null, im:null, otch:null,status:null, balance:null}
+  hashOfNewClient={id:'new', fio:'new',fam:'new', im:'new', otch:'new',status:'new', balance:0}
   qqqq = (mode) => {
     if (mode == 1) {//все клиенты
 
@@ -96,20 +98,30 @@ class MobileCompany extends React.PureComponent {
     })
     this.setState({ clients: ccc });
   };
+  editedClient=null
   editClient = (code) => {
     this.setState({ created: false });
     this.setState({ edited: true })
     var ttt = null
     let newClients = [...this.state.clients]; // копия самого массива клиентов
-    let ccc = newClients.filter(function (s, i) {
+   /* let ccc = newClients.filter(function (s, i) {
       if (s.id == code) {
         ttt = i
         return
       } 
+    })*/
+    this.editedClient=null
+    this.editedClient = newClients.filter(function (s, i) {
+    if (s.id == code) {
+      return s
+    }
+        
+      
     })
-    console.log(ttt)
-    this.setState({ editNum: ttt })
+    //console.log(this.editedClient[0].id)
+    this.setState({ editNum: this.editedClient[0] })
   };
+  
   saveClient = (code,hash) => {
     this.setState({ created: false });
     this.setState({ edited: false })
@@ -164,8 +176,8 @@ class MobileCompany extends React.PureComponent {
     
     console.log("MobileCompany render");
     if (this.state.edited) {
-
-      var mobileClientEditor= <MobileClientEditor key={this.allClients[this.state.editNum].id} info={this.allClients[this.state.editNum]} />
+      console.log(this.state.editNum.id);
+      var mobileClientEditor= <MobileClientEditor key={this.state.editNum.id} info={this.state.editNum} />
     }
     else{var mobileClientEditor=null}
     if (this.state.created) {

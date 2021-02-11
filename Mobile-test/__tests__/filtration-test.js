@@ -11,7 +11,7 @@ test('работа кнопки Активные', () => {
     {id:375292223347, fio:"Григорьев Г.Г.",fam:"Григорьев", im:"Григорий", otch:"Григорьевич",status:"blocked", balance:-220},
   ];
   const component = renderer.create(
-    <MobileCompany clients={clientsArr}  />
+    <MobileCompany clients={clientsArr} key={'1'} />
   );
 
   let componentTree=component.toJSON();
@@ -36,4 +36,6 @@ test('работа кнопки Активные', () => {
   
   componentTree=component.toJSON();
   expect(componentTree).toMatchSnapshot();
+  
+ 
 });

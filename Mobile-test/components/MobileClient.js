@@ -27,15 +27,15 @@ class MobileClient extends React.PureComponent {
 
     console.log("MobileClient id="+this.state.info.id+" render");
     return (
-      <tr className='MobileClient'>
+      <tr className='MobileClient' >
         
         <td className='MobileClientFam'>{this.state.info.fam}</td>
         <td className='MobileClientIm'>{this.state.info.im}</td>
         <td className='MobileClientOtch'>{this.state.info.otch}</td>
         <td className='MobileClientStatus'>{this.state.info.status}</td>
         <td className='MobileClientBalance'>{this.state.info.balance}</td>
-        <td className="ButtonEdit"> <input type="button" value="Редактировать" onClick={this.edited}  /></td>
-        <td className="ButtonDelete"> <input type="button" value="Удалить" onClick={this.deleted}  /></td>
+        <td className="ButtonEdit"> <input type="button" value="Редактировать" onClick={this.edited} id={this.state.info.id+"Edit"} /></td>
+        <td className="ButtonDelete"> <input type="button" value="Удалить" onClick={this.deleted} id={this.state.info.id+"Delete"} /></td>
       </tr>
     )
     
